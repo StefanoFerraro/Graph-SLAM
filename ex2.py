@@ -128,7 +128,7 @@ def t2v(T):
     return v
 
 
-def plot_graph(g):
+def plot_graph(g, plotname):
 
     # initialize figure
     plt.figure(1)
@@ -140,12 +140,12 @@ def plot_graph(g):
     # plot robot poses
     if len(poses) > 0:
         poses = np.stack(poses, axis=0)
-        plt.plot(poses[:, 0], poses[:, 1], 'bo', mfc='none', mew = 0.25, ms = 3)
+        plt.plot(poses[:, 0], poses[:, 1], 'C0o', mfc='none', mew = 0.5, ms = 3)
 
     # plot landmarks
     if len(landmarks) > 0:
         landmarks = np.stack(landmarks, axis=0)
-        plt.plot(landmarks[:, 0], landmarks[:, 1], 'rd', mfc='none', mew = 1, ms = 3)
+        plt.plot(landmarks[:, 0], landmarks[:, 1], 'C1o', mew = 1, ms = 3)
 
     # plot edges/constraints
     poseEdgesP1 = []
@@ -175,9 +175,10 @@ def plot_graph(g):
     
     # plt.plot(np.concatenate((landmarkEdgesP1[:, 0], landmarkEdgesP2[:, 0])),
     #          np.concatenate((landmarkEdgesP1[:, 1], landmarkEdgesP2[:, 1])), '-.b', linewidth = 0.5)
-
+    
     plt.draw()
-    plt.pause(1)
+    
+    plt.savefig(str(plotname) + ".png", dpi = 120)
 
     return
 
@@ -214,7 +215,7 @@ def run_graph_slam(g, numIterations):
         g.x += dx
         
         # plot graph
-        plot_graph(g)
+        plot_graph(g, i + 1)
         
         # compute and print global error
         Fx_old = Fx
@@ -493,7 +494,7 @@ filename = 'data/dlr.g2o'
 graph = read_graph_g2o(filename)
 
 # visualize the dataset
-plot_graph(graph)
+plot_graph(graph, 0)
 print('Loaded graph with {} nodes and {} edges'.format(len(graph.nodes), len(graph.edges)))
 
 run_graph_slam(graph, 100)
