@@ -1,6 +1,6 @@
 # **Graph-SLAM implementation**
 
-![Alt Text](data/)
+<img src="data/pose_landmarkSLAM.gif" width="500" />
 
 The following is a documented presentation of a Graph-SLAM implementation based on the course ["Mobile Sensing and Robotics 2"](https://www.ipb.uni-bonn.de/msr2-2020/) given by Cyrill Stachniss at the University of Bonn. The dataset used for in this example has been provided in the same course. A formal theoretical explanation can be found in the [relative paper](http://www2.informatik.uni-freiburg.de/~stachnis/pdf/grisetti10titsmag.pdf). This aims to be a more informal approach for explaining theory behind the same algorithm. 
 
