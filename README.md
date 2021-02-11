@@ -27,9 +27,7 @@ If we have a similar environmental feature in two distinct point in the space, t
 
 This two task are dependent one to the other, in order to have a proper data association (Graph construction) a good understanding of the prior poses is needed.
 
-The following implementation takes care only of the later task. The example below show the result of the implementation on a graph where only robot poses (and so measuremetns)
-
-<img src="data/pose_pose1SLAM.gif" width="600" />
+The following implementation takes care only of the later task. The example at the beginning of the documentation show the result of the implementation, and the related global error reduction (difference between observed measurement and robot pose).
 
 
 
