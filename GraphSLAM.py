@@ -170,15 +170,16 @@ def plot_graph(g, plotname):
     #landmarkEdgesP1 = np.stack(landmarkEdgesP1, axis=0)
     #landmarkEdgesP2 = np.stack(landmarkEdgesP2, axis=0)
     
-    # plt.plot(np.concatenate((poseEdgesP1[:, 0], poseEdgesP2[:, 0])),
-    #          np.concatenate((poseEdgesP1[:, 1], poseEdgesP2[:, 1])), '-.r', linewidth=1)
+    plt.plot(np.concatenate((poseEdgesP1[:, 0], poseEdgesP2[:, 0])),
+              np.concatenate((poseEdgesP1[:, 1], poseEdgesP2[:, 1])), '-.r', linewidth=1)
     
     # plt.plot(np.concatenate((landmarkEdgesP1[:, 0], landmarkEdgesP2[:, 0])),
     #          np.concatenate((landmarkEdgesP1[:, 1], landmarkEdgesP2[:, 1])), '-.b', linewidth = 0.5)
     
     plt.draw()
+    plt.pause(1)
     
-    plt.savefig(str(plotname) + ".png", dpi = 120)
+    #plt.savefig(str(plotname) + ".png", dpi = 120)
 
     return
 
@@ -493,17 +494,18 @@ def linearize_pose_landmark_constraint(x, l, z):
     return e, A, B
 
 # load a dataset 
-filename = 'data/dlr.g2o'
+filename = 'data/simulation-pose-pose.g2o'
 graph = read_graph_g2o(filename)
 
 # visualize the dataset
-plot_graph(graph, 0)
 print('Loaded graph with {} nodes and {} edges'.format(len(graph.nodes), len(graph.edges)))
+plot_graph(graph, 0)
 
 Fx_data = run_graph_slam(graph, 100)
 
-plt.figure(2)
-plt.plot(Fx_data, 'C0')
-plt.ylabel('Global Error')
-plt.xlabel('Iteration n°')
-plt.xticks(range(0,len(Fx_data)))
+# plt.figure(2)
+# plt.plot(Fx_data, 'C0')
+# plt.ylabel('Global Error')
+# plt.yscale("log")
+# plt.xlabel('Iteration n°')
+# plt.xticks(range(0,len(Fx_data)))
