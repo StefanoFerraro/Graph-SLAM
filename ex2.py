@@ -204,6 +204,7 @@ def get_poses_landmarks(g):
 def run_graph_slam(g, numIterations):
     
     Fx = 0
+    Fx_data = [] 
 
     # perform optimization
     for i in range(numIterations):
@@ -218,15 +219,17 @@ def run_graph_slam(g, numIterations):
         plot_graph(g, i + 1)
         
         # compute and print global error
-        Fx_old = Fx
         Fx = compute_global_error(g)
+        Fx_data.append(Fx)
         
         print("Current Error = ", Fx)
 
         # terminate procedure if change is less than 10e-4
-        if(abs(Fx_old - Fx)< 10e-4):
-            break
-     
+        if len(Fx_data) > 1:
+            if(abs(Fx_data[-1] - Fx_data[-2])< 10e-4):
+                break
+        
+    return Fx_data
 
 
 def compute_global_error(g):
@@ -497,4 +500,10 @@ graph = read_graph_g2o(filename)
 plot_graph(graph, 0)
 print('Loaded graph with {} nodes and {} edges'.format(len(graph.nodes), len(graph.edges)))
 
-run_graph_slam(graph, 100)
+Fx_data = run_graph_slam(graph, 100)
+
+plt.figure(2)
+plt.plot(Fx_data, 'C0')
+plt.ylabel('Global Error')
+plt.xlabel('Iteration n°')
+plt.xticks(range(0,len(Fx_data)))
